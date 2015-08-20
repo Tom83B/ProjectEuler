@@ -1,25 +1,11 @@
-def num_poss(value):
-	if value>=1:
-		if value>=2:
-			if value>=5:
-				if value>=10:
-					if value>=20:
-						if value>=50:
-							if value>=100:
-								return num_poss(value-100)+num_poss(value-50)+num_poss(value-20)+num_poss(value-10)+num_poss(value-5)+num_poss(value-2)+num_poss(value-1)
-							else:
-								return num_poss(value-50)+num_poss(value-20)+num_poss(value-10)+num_poss(value-5)+num_poss(value-2)+num_poss(value-1)
-						else:
-							return num_poss(value-20)+num_poss(value-10)+num_poss(value-5)+num_poss(value-2)+num_poss(value-1)
-					else:
-						return num_poss(value-10)+num_poss(value-5)+num_poss(value-2)+num_poss(value-1)
-				else:
-					return num_poss(value-5)+num_poss(value-2)+num_poss(value-1)
-			else:
-				return num_poss(value-2)+num_poss(value-1)
-		else:
-			return num_poss(value-1)
-	else:
-		return 1
+import numpy as np
+import sys
 
-print num_poss(5)
+coins = np.array([ 1, 2, 5, 10, 20, 50, 100, 200 ])
+
+def num_poss(value, coin_list):
+	if value>=1:
+		return sum( num_poss(value-coin, coin_list[coin_list<=coin]) for coin in coin_list[coin_list<=value] )
+	else: return 1
+
+print(num_poss(int(sys.argv[1]), coins))
