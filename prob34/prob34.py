@@ -5,9 +5,11 @@ import timeit
 
 curious = []
 
+f = [ factorial(n) for n in range(0,10) ] # mnohem rychlejsi, nez ho pocitat
+
 for n in range(3,10**6):
 	num_list = [ int(num) for num in str(n) ]
-	if sum( factorial(num) for num in num_list )==n:
+	if sum( f[num] for num in num_list )==n:
 		curious.append(n)
 
 print curious
